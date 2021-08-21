@@ -12,7 +12,7 @@ const TagsTemplate = ({ data }: Props) => {
   return (
     <Layout pageTitle="Tags">
       <h2>태그 목록</h2>
-      <ul className="flex gap-4 my-2">
+      <ul className="flex gap-4 my-2 flex-wrap">
         {data.allMdx.group.map(({ fieldValue, totalCount }) => (
           <li key={fieldValue}>
             <Tag name={fieldValue} count={totalCount} />
