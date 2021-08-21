@@ -3,14 +3,15 @@ const siteConfig = require('./site-config');
 module.exports = {
   siteMetadata: siteConfig,
   plugins: [
+    'gatsby-plugin-netlify',
     {
-      resolve: `gatsby-plugin-postcss`,
+      resolve: 'gatsby-plugin-postcss',
       options: {
         postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
       },
     },
     {
-      resolve: `gatsby-plugin-purgecss`,
+      resolve: 'gatsby-plugin-purgecss',
       options: {
         printRejected: false,
         develop: false,
@@ -38,11 +39,13 @@ module.exports = {
       options: {
         name: siteConfig.siteTitle,
         short_name: siteConfig.siteShortTitle,
+        description: siteConfig.siteDescription,
+        lang: siteConfig.siteLanguage,
         start_url: '/',
         background_color: siteConfig.siteBackgroundColor,
         theme_color: siteConfig.siteThemeColor,
         display: 'standalone',
-        icon: 'src/images/icon.png',
+        icon: siteConfig.manifestIcon,
       },
     },
     {
@@ -66,7 +69,7 @@ module.exports = {
             resolve: 'gatsby-remark-images',
           },
           {
-            resolve: `gatsby-remark-prismjs`,
+            resolve: 'gatsby-remark-prismjs',
             options: {
               classPrefix: 'language-',
               inlineCodeMarker: null,

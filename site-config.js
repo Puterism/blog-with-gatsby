@@ -9,7 +9,7 @@ module.exports = {
   siteLanguage: 'ko',
   siteBackgroundColor: '#222222',
   siteThemeColor: '#f8ea32',
-  siteIcon: '/icon.png',
+  manifestIcon: 'src/images/icon.png',
   author: {
     name: '심문성',
     avatar: '/profile.png',
