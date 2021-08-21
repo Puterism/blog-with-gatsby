@@ -1,36 +1,104 @@
 const siteConfig = require('./site-config');
 
 module.exports = {
-  siteMetadata: {
-    title: siteConfig.title,
-  },
+  siteMetadata: siteConfig,
   plugins: [
     {
-      resolve: 'gatsby-plugin-sass',
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
+      },
     },
-    'gatsby-plugin-dts-css-modules',
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: false,
+        develop: false,
+        tailwind: true,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-svgr',
+      options: {
+        prettier: true, // use prettier to format JS code output (default)
+        svgo: true, // use svgo to optimize SVGs (default)
+        svgoConfig: {
+          plugins: [
+            { removeViewBox: false }, // remove viewBox when possible (default)
+            { cleanupIDs: true }, // remove unused IDs and minify remaining IDs (default)
+          ],
+        },
+      },
+    },
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
+        name: siteConfig.siteTitle,
+        short_name: siteConfig.siteShortTitle,
+        start_url: '/',
+        background_color: siteConfig.siteBackgroundColor,
+        theme_color: siteConfig.siteThemeColor,
+        display: 'standalone',
         icon: 'src/images/icon.png',
       },
     },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-remark-images',
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx', '.md'],
         gatsbyRemarkPlugins: [
+          'gatsby-remark-copy-linked-files',
           {
             resolve: 'gatsby-remark-images',
           },
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              inlineCodeMarker: null,
+              aliases: {
+                js: 'javascript',
+                sh: 'bash',
+              },
+              showLineNumbers: false,
+              noInlineHighlight: true,
+              languageExtensions: [
+                {
+                  language: 'superscript',
+                  extend: 'javascript',
+                  definition: {
+                    superscript_types: /(SuperType)/,
+                  },
+                  insertBefore: {
+                    function: {
+                      superscript_keywords: /(superif|superelse)/,
+                    },
+                  },
+                },
+              ],
+              prompt: {
+                user: 'root',
+                host: 'localhost',
+                global: false,
+              },
+              escapeEntities: {},
+            },
+          },
         ],
       },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'assets',
+        path: `${__dirname}/src/assets`,
+      },
+      __key: 'assets',
     },
     {
       resolve: 'gatsby-source-filesystem',
@@ -44,17 +112,17 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'pages',
-        path: `${__dirname}/src/pages`,
+        path: `${__dirname}/content/pages`,
       },
       __key: 'pages',
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        name: 'content',
-        path: `${__dirname}/content`,
+        name: 'posts',
+        path: `${__dirname}/content/posts`,
       },
-      __key: 'content',
+      __key: 'posts',
     },
   ],
 };

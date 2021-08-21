@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
 
-const NotFoundPage = () => {
+const NotFoundTemplate = () => {
   return (
     <main>
       <title>Not found</title>
@@ -10,4 +10,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;
+export default NotFoundTemplate;
