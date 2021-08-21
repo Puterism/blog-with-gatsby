@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Node } from '../types';
 import Layout from '../components/layout/layout';
+import SEO from '../components/seo/seo';
 
 interface Props {
   data: {
@@ -11,11 +12,12 @@ interface Props {
 }
 
 const PageTemplate = ({ data }: Props) => {
-  const { body, frontmatter } = data.mdx;
+  const { body, frontmatter, excerpt } = data.mdx;
   const { title } = frontmatter;
 
   return (
-    <Layout pageTitle={title}>
+    <Layout>
+      <SEO title={title} description={excerpt} />
       <article className="prose max-w-none my-16">
         <MDXRenderer localImages={frontmatter.embeddedImagesLocal}>{body}</MDXRenderer>
       </article>
@@ -36,6 +38,7 @@ export const query = graphql`
           }
         }
       }
+      excerpt
     }
   }
 `;

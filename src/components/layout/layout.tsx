@@ -7,11 +7,11 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import useSiteMetadata from '../../hooks/useSiteMetadata';
 
 interface Props {
-  pageTitle: string;
+  children: React.ReactNode;
 }
 
-const Layout = ({ pageTitle, children }: PropsWithChildren<Props>) => {
-  const { siteTitle, menu } = useSiteMetadata();
+const Layout = ({ children }: Props) => {
+  const { menu } = useSiteMetadata();
 
   return (
     <MDXProvider
@@ -36,10 +36,7 @@ const Layout = ({ pageTitle, children }: PropsWithChildren<Props>) => {
             </ul>
           </nav>
         </header>
-        <main className="my-8">
-          <title>{`${pageTitle} | ${siteTitle}`}</title>
-          {children}
-        </main>
+        <main className="my-8">{children}</main>
       </div>
     </MDXProvider>
   );

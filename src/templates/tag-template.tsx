@@ -4,6 +4,7 @@ import { AllMdx } from '../types';
 import Layout from '../components/layout/layout';
 import Tag from '../components/tag/tag';
 import { formatDateString } from '../utils/datetime';
+import SEO from '../components/seo/seo';
 
 interface Props {
   pageContext: {
@@ -16,10 +17,11 @@ const TagTemplate = ({ pageContext, data }: Props) => {
   const { tag } = pageContext;
   const { totalCount, edges } = data.allMdx;
 
-  const tagTitle = `${tag} (${totalCount})`;
+  const tagTitle = `${tag} - Tags`;
 
   return (
-    <Layout pageTitle={tagTitle}>
+    <Layout>
+      <SEO title={tagTitle} />
       <Tag name={tag} count={totalCount} />
       <ul>
         {edges.map(({ node }) => {

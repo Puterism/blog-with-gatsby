@@ -12,7 +12,7 @@ interface Props {
 
 const BlogTemplate = ({ data }: Props) => {
   return (
-    <Layout pageTitle="Home">
+    <Layout>
       <SEO />
       <hr className="mb-8" />
       <Author />

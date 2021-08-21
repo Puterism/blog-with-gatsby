@@ -1,25 +1,27 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
+import { useLocation } from '@reach/router';
 import useSiteMetadata from '../../hooks/useSiteMetadata';
-import { Node } from '../../types';
 
 interface Props {
-  post?: Node;
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
 }
 
-const SEO = ({ post }: Props) => {
+const SEO = ({ title, description, image, type = 'website' }: Props) => {
+  const { pathname } = useLocation();
+
   const { siteTitle, siteShortTitle, siteDescription, siteUrl, siteImage, siteLanguage, author } = useSiteMetadata();
   const { twitter } = author.social;
 
-  const postTitle = post?.frontmatter.title;
-  const postDescription = post?.frontmatter.description ?? post?.excerpt;
-  const postCover = post?.frontmatter.cover;
-  const postSlug = post?.fields?.slug ?? post?.frontmatter?.slug ?? '';
-
-  const title = postTitle ? `${postTitle} - ${siteShortTitle}` : siteTitle;
-  const description = postDescription ? postDescription : siteDescription;
-  const image = postCover ? postCover : siteImage;
-  const url = `${siteUrl}${postSlug}`;
+  const seo = {
+    title: title ? `${title} - ${siteShortTitle}` : siteTitle,
+    description: description ? description : siteDescription,
+    image: image ? image : siteImage,
+    url: `${siteUrl}${pathname}`,
+  };
 
   return (
     <Helmet
@@ -28,15 +30,19 @@ const SEO = ({ post }: Props) => {
         prefix: 'og: http://ogp.me/ns#',
       }}
     >
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta property="og:url" content={url} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
-      <meta property="og:type" content="website" />
+      {seo.title && <title>{seo.title}</title>}
+      {seo.description && <meta name="description" content={seo.description} />}
+      {seo.image && <meta name="image" content={seo.image} />}
+      <meta property="og:url" content={seo.url} />
+      {seo.title && <meta property="og:title" content={seo.title} />}
+      {seo.description && <meta property="og:description" content={seo.description} />}
+      {seo.image && <meta property="og:image" content={seo.image} />}
+      <meta property="og:type" content={`${type}`} />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:creator" content={twitter ? twitter : ''} />
+      {twitter && <meta name="twitter:creator" content={twitter} />}
+      {seo.title && <meta name="twitter:title" content={seo.title} />}
+      {seo.description && <meta name="twitter:description" content={seo.description} />}
+      {seo.image && <meta name="twitter:image" content={seo.image} />}
     </Helmet>
   );
 };

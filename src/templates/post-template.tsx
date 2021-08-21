@@ -22,15 +22,15 @@ interface Props {
 }
 
 const PostTemplate = ({ data, pageContext }: Props) => {
-  const { body, frontmatter } = data.mdx;
+  const { body, frontmatter, excerpt } = data.mdx;
   const { title, date, tags } = frontmatter;
   const { previous, next } = pageContext;
 
   const dateText = new Intl.DateTimeFormat('ko-KR').format(new Date(date));
 
   return (
-    <Layout pageTitle={title}>
-      <SEO post={data.mdx} />
+    <Layout>
+      <SEO title={title} description={excerpt} type="article" />
       <h1 className="font-bold my-2">{title}</h1>
       <small>{dateText}</small>
       <ul className="flex gap-4 my-2">
