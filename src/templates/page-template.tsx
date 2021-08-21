@@ -17,7 +17,7 @@ const PageTemplate = ({ data }: Props) => {
   return (
     <Layout pageTitle={title}>
       <article className="prose max-w-none my-16">
-        <MDXRenderer>{body}</MDXRenderer>
+        <MDXRenderer localImages={frontmatter.embeddedImagesLocal}>{body}</MDXRenderer>
       </article>
     </Layout>
   );
@@ -30,6 +30,11 @@ export const query = graphql`
       frontmatter {
         title
         date
+        embeddedImagesLocal {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   }

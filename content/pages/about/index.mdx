@@ -2,9 +2,13 @@
 title: About
 template: page
 draft: false
+embeddedImagesLocal:
+  - 'profile.png'
 ---
 
-![](profile.png)
+import { getImage, GatsbyImage } from 'gatsby-plugin-image';
+
+<GatsbyImage alt="심문성" image={getImage(props.localImages[0])} className="mb-8" />
 
 # 심문성 (Shim MunSeong)
 

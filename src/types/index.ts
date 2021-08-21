@@ -25,6 +25,7 @@ export interface Node {
     slug: string;
     template: string;
     cover?: string;
+    embeddedImagesLocal?: string[];
   };
   excerpt: string;
 }
