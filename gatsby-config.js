@@ -60,7 +60,7 @@ module.exports = {
         defaults: {
           quality: 70,
           formats: ['auto', 'webp', 'avif'],
-          placeholder: 'blurred',
+          placeholder: 'dominantColor',
         },
       },
     },
