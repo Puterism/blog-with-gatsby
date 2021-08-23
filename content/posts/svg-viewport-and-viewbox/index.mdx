@@ -1,0 +1,291 @@
+---
+title: 'SVG 뷰포트(viewport)와 뷰박스(viewBox)'
+date: 2021-08-23
+tags: ['SVG']
+slug: 'svg-viewport-and-viewbox'
+template: post
+draft: false
+---
+
+JPEG, PNG와 같은 래스터 이미지의 사이즈를 조절할 때는 아래와 같이 `width`나 `height`로 조절할 수 있다.
+
+```html
+<img src="https://freesvg.org/img/mono-minitools.png" alt="예시 래스터 이미지" style="width: 100%; height: 400px;" />
+```
+
+<img src="https://freesvg.org/img/mono-minitools.png" alt="예시 래스터 이미지" style="width: 100%; height: 400px;" />
+
+하지만 SVG에서는 사이즈를 조절할 때는 조금 다르게 동작한다. 다음 예시 코드를 보자.
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+```
+
+위 예시 코드는 가로 200px, 세로 200px만큼의 뷰포트만 설정한 상태이다. 여기서 200px 사이즈로 도형을 그려두었다.
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+이 상태에서 `width`와 `height`를 100px로 줄이면 다음과 같다.
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="100">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+200px 만큼 그려진 도형들은 보이는 영역에 비해서 작기 때문에 잘려서 보이게 된다. 즉, 도형의 크기와 비율이 유지된 상태로 보이는 영역만 조절되는 것이다.
+
+이 때, 보여지는 영역을 **뷰포트**라고 하며, `width`와 `height` 속성으로 크기를 설정할 수 있다.
+
+SVG에서 영역의 크기를 조절할 때는 `viewBox` 속성도 함께 염두에 두어야 한다. `width`와 `height`로 SVG의 영역 크기(뷰포트)를 설정할 수 있다면, `viewBox`는 **SVG 내부 요소들의 좌표 영역과 비율**, 그리고 **뷰포트 내에서 도형을 보여줄 위치**를 설정할 수 있다.
+
+`viewBox` 속성은 `min-x`, `min-y`, `width`, `height`를 순서대로 받는다.
+
+- `min-x`, `min-y`: 왼쪽 위를 기준점으로 한 뷰박스의 좌표
+- `width`, `height`: 가로, 세로 뷰박스 사이즈
+
+다음과 같이 `viewBox` 속성을 지정해주면 다음과 같다.
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="100" viewBox="0 0 200 200">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+```
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="100" viewBox="0 0 200 200">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+`width`, `height`를 조절하면서 뷰포트 사이즈를 조절할 때, 200 \* 200만큼의 뷰박스로 좌표 영역을 유지하면서 줄어든 것을 확인할 수 있다. 이렇게 뷰박스를 통해 SVG 내부 요소들의 좌표 영역과 비율을 지정해줄 수 있다.
+
+이번에는 반대로 뷰박스의 영역보다 뷰포트를 더 크게 설정해보자.
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200" viewBox="0 0 100 100">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+```
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200" viewBox="0 0 100 100">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+100 _ 100 크기의 좌표 영역이 200 _ 200 사이즈로 늘어난 상태이다. 뷰박스에서 벗어난 도형들의 일부는 잘려보인다.
+
+이번에는 뷰박스의 위치를 조절해보자.
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200" viewBox="50 50 100 100">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+```
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200" height="200" viewBox="50 50 100 100">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+뷰박스의 위치를 (50, 50) 으로 이동한 상태이며, 이번에는 `rect`로 그린 검은 선이 잘려 보인다.
+
+만약에 `viewBox`만 설정하고 `width`와 `height`를 지정해주지 않았다면, 기본값이 `100%`이기 때문에 바깥 요소 안에서 꽉 찬 형태의 도형이 그려질 것이다.
+
+이렇게 뷰포트와 뷰박스를 다양하게 설정해보면서 뷰박스가 어떻게 동작하는지 살펴보았다. 정리하면 다음과 같다.
+
+- 뷰박스는 `width`, `height`로 SVG의 뷰포트를 설정할 때, 그 기준점을 정하는 것이다.
+- 뷰박스를 통해 **SVG 내부 요소들의 좌표 영역과 비율**, 그리고 **뷰포트 내에서 도형을 보여줄 위치**를 정할 수 있다.
+- 뷰박스는 `viewBox` 속성을 통해 지정해줄 수 있으며, 순서대로 `min-x`, `min-y`, `width`, `height`를 받는다.
+
+## `viewBox`와 `preserveAspectRatio`의 관계
+
+지금까지는 뷰박스와 뷰포트의 비율을 1:1로 동일하게 지정해줬다. 이번에는 뷰박스를 뷰포트와 비율이 다르게 설정해보자. 뷰포트는 400 _ 200에 뷰박스는 200 _ 200로 지정해주었다.
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400" height="200" viewBox="0 0 200 200">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+```
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400" height="200" viewBox="0 0 200 200">
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+`viewBox` 로 지정한 영역이 뷰포트의 **가운데**로 와 있는 것을 확인할 수 있는데, 이는 `**preserveAspectRatio**`라는 속성의 기본값이 `xMidYMid meet`이기 때문이다.
+
+뷰포트와 뷰박스의 크기가 다를 경우 `preserveAspectRatio` 속성을 통해 요소들을 어디에 위치시킬 것인지, 가로와 세로의 비율을 유지할 지, 그리고 크기를 확대/축소할 지 정할 수 있다.
+
+`preserveAspectRatio` 는 두 가지 옵션을 순서대로 입력받는다.
+
+- 첫번째는 `<align>` 옵션으로, x축과 y축을 기준으로 어디에 정렬할 것인가를 지정할 수 있다.
+- 두번째는 `<meetOrSlice>` 옵션으로, 뷰박스를 뷰포트 안에 모두 표시할 지 (`meet`), 뷰박스를 자를 지(`slice`) 정할 수 있다.
+
+도형이 왼쪽이나 위쪽에 오도록 설정하려면 `xMinYMin meet`로 설정하면 된다.
+
+```html
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="400"
+  height="200"
+  viewBox="0 0 200 200"
+  preserveAspectRatio="xMinYMin meet"
+>
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+```
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="400"
+  height="200"
+  viewBox="0 0 200 200"
+  preserveAspectRatio="xMinYMin meet"
+>
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+반대로 오른쪽이나 아래쪽에 오도록 설정하려면 `xMaxYMax meet`로 설정하면 된다.
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="400"
+  height="200"
+  viewBox="0 0 200 200"
+  preserveAspectRatio="xMaxYMax meet"
+>
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+이 상태에서 뷰박스를 잘라서 보여주려면 `slice`로 설정하면 된다.
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="400"
+  height="200"
+  viewBox="0 0 200 200"
+  preserveAspectRatio="xMaxYMax slice"
+>
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+여기서 `YMid`로 설정하면 y축으로 잘리는 뷰박스의 영역을 가운데로 정렬할 수 있다.
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="400"
+  height="200"
+  viewBox="0 0 200 200"
+  preserveAspectRatio="xMaxYMid slice"
+>
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+만약 이미지의 비율과 상관없이 SVG의 사이즈를 조절해주고 싶다면, `preserveAspectRatio`를 `none`으로 설정해주면 된다. 이렇게 설정해준다면, 일반적인 래스터 이미지와 같은 방법으로 사이즈가 조절된다.
+
+```html
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="400"
+  height="200"
+  viewBox="0 0 200 200"
+  preserveAspectRatio="none"
+>
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+```
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  width="400"
+  height="200"
+  viewBox="0 0 200 200"
+  preserveAspectRatio="none"
+>
+  <rect x="0" y="0" width="200" height="200" stroke="black" fill="transparent" />
+  <circle cx="100" cy="100" r="50" fill="#ff1795" />
+</svg>
+
+마지막으로, `viewBox` 속성이 지정되지 않았다면, `preserveAspectRatio` 속성은 무시된다.
+
+## 부록: 리액트에서 사용하기
+
+리액트에서 SVG를 사용하려면 `<img>` 태그를 사용해도 되지만, SVG를 컴포넌트처럼 가져와서 사용할 수도 있다. Create React App으로 프로젝트를 생성했다면 다음과 같이 바로 사용할 수 있다.
+
+```tsx
+/* 1. EditIcon이라는 이름으로 import한다. */
+import { ReactComponent as EditIcon } from './assets/edit.svg';
+
+const App = () => {
+  return (
+    <div className="app">
+      {/* 2. 컴포넌트처럼 사용한다 */}
+      <EditIcon />
+    </div>
+  );
+};
+
+export default App;
+```
+
+만약 모듈 번들러를 이용하여 직접 프로젝트를 세팅했다면, [SVGR](https://react-svgr.com/)을 설치하면 된다. (Create React App도 SVGR이 세팅되어 있기 때문에 바로 SVG 컴포넌트를 사용할 수 있다.) Webpack의 경우에는 `[@svgr/webpack](https://react-svgr.com/docs/webpack/)`을 설치해주면 된다.
+
+## 부록 2: SVGR을 사용할 때의 주의점
+
+SVGR은 SVG를 import할 때 포함되어 있는 `viewBox` 속성을 없애고 가져온다. `viewBox` 속성을 없애주는 옵션이 기본으로 활성화되어 있기 때문이다. 따라서, SVG를 리사이즈할 때 의도와 다르게 동작할 경우, `viewBox` 속성이 존재하는지 확인하면 좋다.
+
+보통 SVG는 Figma나 일러스트레이터와 같이 드로잉 툴로 그리기 때문에, 자동으로 SVG 코드가 생성되는 형태이다. 이렇게 자동 생성되는 SVG 코드에는 보통 `viewBox` 속성이 포함되어 있다. 이 때 `viewBox`를 없애게 되면, 코드에서 SVG의 크기를 조절할 때 의도와 다르게 동작할 수 있다.
+
+`viewBox` 속성을 그대로 사용하려면 `removeViewBox` 옵션을 `false`로 바꿔주어야 한다.
+
+다음은 `.svgrrc.js` 파일에서의 적용 방법이다.
+
+```jsx
+module.exports = {
+  svgoConfig: {
+    plugins: {
+      removeViewBox: false,
+    },
+  },
+};
+```
+
+만약 Webpack을 사용하고 있다면 `webpack.config.js` 파일에서 설정해주면 된다.
+
+```jsx
+{
+  test: /(icons|images)\/.*?.svg$/,
+  use: [{
+    loader: '@svgr/webpack',
+    options: {
+      svgoConfig: {
+        plugins: {
+          removeViewBox: false
+        }
+      }
+    }
+  }, 'file-loader']
+}
+```
