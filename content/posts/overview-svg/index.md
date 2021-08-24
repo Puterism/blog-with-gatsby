@@ -47,12 +47,12 @@ SVG에서 그릴 수 있는 도형 요소로는 `<circle>`, `<ellipse>`, `<line>
 
 다음은 다양한 도형들을 그리는 코드이며, 아래의 이미지처럼 렌더된다.
 
-```tsx
+```html
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
-	<line x1="0" y1="100" x2="100" y2="0" stroke="black" />
-	<rect x="110" y="0" width="100" height="100" fill="#ff7479" />
-	<polyline points="10,10 50,10 10,35 80,35 20,70 100,70" stroke="green" fill="transparent" transform="translate(0,100)" />
-	<polygon points="110,110 160,130 210,110 160,150" stroke="black" strokeWidth="10" fill="lightgray" />
+  <line x1="0" y1="100" x2="100" y2="0" stroke="black" />
+  <rect x="110" y="0" width="100" height="100" fill="#ff7479" />
+  <polyline points="10,10 50,10 10,35 80,35 20,70 100,70" stroke="green" fill="transparent" transform="translate(0,100)" />
+  <polygon points="110,110 160,130 210,110 160,150" stroke="black" strokeWidth="10" fill="lightgray" />
   <circle cx="50" cy="250" r="50" fill="#3498db" />
   <ellipse cx="160" cy="250" rx="30" ry="50" fill="#e74c3c" />
 </svg>
@@ -66,20 +66,20 @@ SVG에서 그릴 수 있는 도형 요소로는 `<circle>`, `<ellipse>`, `<line>
 
 - `<line>`은 `x1`, `y1`로 시작점, `x2`, `y2`로 끝점을 지정하여 선을 그릴 수 있다.
 
-    ```tsx
+    ```html
     <line x1="0" y1="100" x2="100" y2="0" stroke="black" />
     ```
 
 - `<rect>`로 직사각형을 그릴 수 있다. `x`와 `y`로 왼쪽 위를 기준으로 좌표를 정하고, `width`와 `height`를 통해 크기를 정할 수 있다.
 
-    ```tsx
+    ```html
     <rect x="110" y="0" width="100" height="100" fill="#ff7479" />
     ```
 
 - `<polyline>`으로 다각선을, `<polygon>`으로 다각형을 그릴 수 있다. `points` 속성에서 `x,y` 좌표의 형식으로 선의 점(Anchor)들을 설정할 수 있다.
     - `<polyline>`과 달리 `<polygon>`은 마지막 point과 첫번째 point가 연결되는 선이 자동으로 이어진다.
 
-    ```tsx
+    ```html
     <polyline points="10,10 50,10 10,35 80,35 20,70 100,70" stroke="green" fill="transparent" />
     <polygon points="110,110 160,130 210,110 160,150" stroke="black" strokeWidth="10" fill="lightgray" />
     ```
@@ -87,7 +87,7 @@ SVG에서 그릴 수 있는 도형 요소로는 `<circle>`, `<ellipse>`, `<line>
 - `<circle>`으로 원을, `<ellipse>`으로 타원을 그릴 수 있다. `cx`와 `cy`로 원의 중심을 정할 수 있고, `r` 속성으로 반지름을 정할 수 있다.
     - `<ellipse>`의 경우, `rx`와 `ry` 속성으로 각각 가로, 세로의 반지름을 따로 설정해주어야 한다.
 
-    ```tsx
+    ```html
     <circle cx="50" cy="250" r="50" fill="#3498db" />
     <ellipse cx="160" cy="250" rx="30" ry="50" fill="#e74c3c" />
     ```
@@ -117,53 +117,15 @@ SVG 이미지 크기를 조절할 때 알아야 하는 뷰박스와 뷰포트에
 import { ReactComponent as EditIcon } from './assets/edit.svg';
 
 const App = () => {
-	return (
-		<div className="app">
-		  {/* 2. 컴포넌트처럼 사용한다 */}
-			<EditIcon />
-		</div>
-	);
+  return (
+    <div className="app">
+      {/* 2. 컴포넌트처럼 사용한다 */}
+      <EditIcon />
+    </div>
+  );
 };
 
 export default App;
 ```
 
-만약 모듈 번들러를 이용하여 직접 프로젝트를 세팅했다면, [SVGR](https://react-svgr.com/)을 설치하면 된다. (Create React App도 SVGR이 세팅되어 있기 때문에 바로 SVG 컴포넌트를 사용할 수 있다.) Webpack의 경우에는 `[@svgr/webpack](https://react-svgr.com/docs/webpack/)`을 설치해주면 된다.
-
-## 부록 2: SVGR을 사용할 때의 주의점
-
-SVGR은 SVG를 import할 때 포함되어 있는 `viewBox` 속성을 없애고 가져온다. `viewBox` 속성을 없애주는 옵션이 기본으로 활성화되어 있기 때문이다. 따라서, SVG를 리사이즈할 때 의도와 다르게 동작할 경우, `viewBox` 속성이 존재하는지 확인하면 좋다.
-
-보통 SVG는 Figma나 일러스트레이터와 같이 드로잉 툴로 그리기 때문에, 자동으로 SVG 코드가 생성되는 형태이다. 이렇게 자동 생성되는 SVG 코드에는 보통 `viewBox` 속성이 포함되어 있다. 이 때  `viewBox`를 없애게 되면, 코드에서 SVG의 크기를 조절할 때 의도와 다르게 동작할 수 있다.
-
-`viewBox` 속성을 그대로 사용하려면 `removeViewBox` 옵션을 `false`로 바꿔주어야 한다.
-
-다음은 `.svgrrc.js` 파일에서의 적용 방법이다.
-
-```jsx
-module.exports = {
-  svgoConfig: {
-    plugins: {
-      removeViewBox: false
-    }
-  }
-};
-```
-
-만약 Webpack을 사용하고 있다면 `webpack.config.js` 파일에서 설정해주면 된다.
-
-```jsx
-{
-  test: /(icons|images)\/.*?.svg$/,
-  use: [{
-    loader: '@svgr/webpack',
-    options: {
-      svgoConfig: {
-        plugins: {
-          removeViewBox: false
-        }
-      }
-    }
-  }, 'file-loader']
-}
-```
+만약 모듈 번들러를 이용하여 직접 프로젝트를 세팅했다면, [SVGR](https://react-svgr.com/)을 설치하면 된다. (Create React App도 SVGR이 세팅되어 있기 때문에 바로 SVG 컴포넌트를 사용할 수 있다.) Webpack의 경우에는 [`@svgr/webpack`](https://react-svgr.com/docs/webpack/)을 설치해주면 된다.
