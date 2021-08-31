@@ -6,7 +6,7 @@ import Layout from '../components/layout/layout';
 import Author from '../components/author/author';
 import Tag from '../components/tag/tag';
 import SEO from '../components/seo/seo';
-import LoadableComment from '../components/loadable-comment/loadable-comment';
+import LoadableComment from '../components/comment/loadable-comment';
 
 interface PageContext {
   id: string;
