@@ -4945,10 +4945,10 @@ damerau-levenshtein@^1.0.6:
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.7.tgz#64368003512a1a6992593741a09a9d31a836f55d"
   integrity sha512-VvdQIPGdWP0SqFXghj79Wf/5LArmreyMsGLa6FG6iC4t3j7j5s71TrwWmT/4akbDQIqjfACkLZmjXhA7g2oUZw==
 
-darass-react@^1.2.7:
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/darass-react/-/darass-react-1.2.7.tgz#e27999950d05d449ca8142a9da1de6cfbbedc56b"
-  integrity sha512-+TVofgioqM7X0IERiMuvM6oGOkzCDyqDfsJvHxzGQ2IDKX0wCXN0aoMFIoW9fos/6tQVeWrn4ayQFWIVt0vdZA==
+darass-react@^1.2.10:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/darass-react/-/darass-react-1.2.10.tgz#72a8719f1c4979a513a63a0f10f052fdbcbb13db"
+  integrity sha512-QrSLX8o3NK42Ob2fgLYPi/Rlz/zco12L8FBGSWIi8zzopkFAB8i4S9Wd0T4rKMMbXertQzI54B7Z7TnMINuntg==
   dependencies:
     react "^17.0.2"
 
