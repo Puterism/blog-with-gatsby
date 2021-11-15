@@ -80,21 +80,15 @@ Context를 활용하면 상태 변화 시 특정 컴포넌트에서만 렌더링
 다음은 예시 코드이다. [https://codesandbox.io/s/react-context-test-tvjzs?file=/src/App.js](https://codesandbox.io/s/react-context-test-tvjzs?file=/src/App.js)
 
 ```jsx
-import { createContext, useContext} from 'react';
+import { createContext, useContext } from 'react';
 
 const MovieContext = createContext();
 
 const MovieProvider = ({ children }) => {
-  const [movies, setMovies] = useState([
-    '블랙 위도우',
-    '샹치와 텐 링즈의 전설',
-    '이터널스'
-  ]);
+  const [movies, setMovies] = useState(['블랙 위도우', '샹치와 텐 링즈의 전설', '이터널스']);
   const value = { movies, setMovies };
 
-  return (
-    <MovieContext.Provider value={value}>{children}</MovieContext.Provider>
-  );
+  return <MovieContext.Provider value={value}>{children}</MovieContext.Provider>;
 };
 ```
 
@@ -177,18 +171,13 @@ React Devtools에서 렌더링이 일어날 때 표시해주는 옵션을 켜서
 
 ```jsx
 <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-  <AccordionSummary
-    expandIcon={<ExpandMoreIcon />}
-    aria-controls="panel1bh-content"
-    id="panel1bh-header"
-  >
+  <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
     <Typography className={classes.heading}>General settings</Typography>
     <Typography className={classes.secondaryHeading}>I am an accordion</Typography>
   </AccordionSummary>
   <AccordionDetails>
     <Typography>
-      Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-      maximus est, id dignissim quam.
+      Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget maximus est, id dignissim quam.
     </Typography>
   </AccordionDetails>
 </Accordion>
@@ -200,7 +189,7 @@ React Devtools에서 렌더링이 일어날 때 표시해주는 옵션을 켜서
 
 `AccordionSummary` 컴포넌트의 버튼을 눌러 토글하는 구조이다. Accordion 컴포넌트를 토글하는 함수, open 상태를 `AccordionSummary`와 `AccordionDetails`가 공유해야 하는 상황이다.
 
-이 상황에 Material-UI에서는 Context를 이용하여 데이터를 공유했다. ([https://github.com/mui-org/material-ui/blob/next/packages/material-ui/src/Accordion/AccordionContext.js](https://github.com/mui-org/material-ui/blob/next/packages/material-ui/src/Accordion/AccordionContext.js))
+이 상황에 Material-UI에서는 Context를 이용하여 데이터를 공유했다. ([`AccordionContext` 코드 링크](https://github.com/mui-org/material-ui/blob/c7a37397e78abb754280552429b43e07af156122/packages/material-ui/src/Accordion/AccordionContext.js))
 
 Accordion 컴포넌트에 필요한 데이터들은 `AccordionContext`를 통해 각 컴포넌트에서 가져와 사용하고 있었다.
 
