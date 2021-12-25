@@ -73,6 +73,9 @@ module.exports = {
           'gatsby-remark-copy-linked-files',
           {
             resolve: 'gatsby-remark-images',
+            options: {
+              showCaptions: ['title'],
+            },
           },
           {
             resolve: 'gatsby-remark-prismjs',
