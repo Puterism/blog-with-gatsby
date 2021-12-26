@@ -111,6 +111,14 @@ module.exports = {
             },
           },
         ],
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              showCaptions: ['title'],
+            },
+          },
+        ],
       },
     },
     {
