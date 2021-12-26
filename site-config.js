@@ -13,7 +13,7 @@ module.exports = {
   author: {
     name: '심문성',
     avatar: '/profile.png',
-    introduction: '기술을 서비스와 사람에게 버무리기 좋아하는 프론트엔드 개발자입니다.',
+    introduction: '커피를 유별나게 좋아하는 프론트엔드 개발자입니다.',
     social: {
       twitter: '@puterism',
       github: 'Puterism',
