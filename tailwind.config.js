@@ -1,11 +1,12 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    extend: {},
     colors: {
-      ...colors,
+      gray: colors.gray,
+      white: colors.white,
       primary: '#222222',
       secondary: '#f8ea32',
     },
@@ -15,10 +16,6 @@ module.exports = {
       lg: '976px',
       xl: '1440px',
     },
-    extend: {},
-  },
-  variants: {
-    extend: {},
   },
   plugins: [require('@tailwindcss/typography')],
 };
