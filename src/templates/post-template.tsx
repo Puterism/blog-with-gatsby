@@ -6,7 +6,7 @@ import Layout from '../components/layout/layout';
 import Author from '../components/author/author';
 import Tag from '../components/tag/tag';
 import SEO from '../components/seo/seo';
-import LoadableComment from '../components/comment/loadable-comment';
+import Comment from '../components/comment/comment';
 
 interface PageContext {
   id: string;
@@ -65,7 +65,7 @@ const PostTemplate = ({ data, pageContext }: Props) => {
           )}
         </div>
       </div>
-      <LoadableComment />
+      <Comment />
     </Layout>
   );
 };
