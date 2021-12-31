@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PropsWithChildren } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { Link } from 'gatsby';
 import AnchorLink from '../anchor-link/anchor-link';
