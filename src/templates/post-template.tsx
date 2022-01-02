@@ -41,7 +41,7 @@ const PostTemplate = ({ data, pageContext }: Props) => {
           </li>
         ))}
       </ul>
-      <article className="prose max-w-none my-16">
+      <article className="prose dark:prose-invert max-w-none my-16">
         <MDXRenderer>{body}</MDXRenderer>
       </article>
       <hr className="my-8" />

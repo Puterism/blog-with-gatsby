@@ -18,7 +18,7 @@ const PageTemplate = ({ data }: Props) => {
   return (
     <Layout>
       <SEO title={title} description={excerpt} />
-      <article className="prose max-w-none my-16">
+      <article className="prose dark:prose-invert max-w-none my-16">
         <MDXRenderer localImages={frontmatter.embeddedImagesLocal}>{body}</MDXRenderer>
       </article>
     </Layout>
