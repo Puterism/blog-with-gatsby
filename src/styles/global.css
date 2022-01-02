@@ -22,7 +22,10 @@ hr {
   @apply border-gray-200;
 }
 
+.prose video {
+  @apply w-full md:w-auto;
+}
+
 .prose figure figcaption {
-  text-align: center;
-  font-style: italic;
+  @apply text-center italic;
 }
