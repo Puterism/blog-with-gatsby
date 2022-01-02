@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-sans dark:bg-primary dark:text-gray-50;
+  @apply font-sans dark:bg-primary dark:text-gray-50 transition-colors;
 }
 
 h1 {

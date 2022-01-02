@@ -3,7 +3,9 @@ import { MDXProvider } from '@mdx-js/react';
 import { Link } from 'gatsby';
 import AnchorLink from '../anchor-link/anchor-link';
 import useSiteMetadata from '../../hooks/useSiteMetadata';
+import useDarkMode from '../../hooks/useDarkMode';
 import Logo from '../logo/logo';
+import Toggle from '../toggle/toggle';
 
 interface Props {
   children: React.ReactNode;
@@ -11,6 +13,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   const { menu } = useSiteMetadata();
+  const { darkMode, onChange } = useDarkMode();
 
   return (
     <MDXProvider
@@ -24,7 +27,7 @@ const Layout = ({ children }: Props) => {
             <Logo />
           </Link>
           <nav className="h-full">
-            <ul className="flex list-none pl-0 gap-4 h-full">
+            <ul className="flex items-center list-none pl-0 gap-4 h-full">
               {menu.map(({ title, link }) => (
                 <li key={title} className="h-full">
                   <Link to={link} className="text-black">
@@ -32,6 +35,9 @@ const Layout = ({ children }: Props) => {
                   </Link>
                 </li>
               ))}
+              <li className="h-full">
+                <Toggle checked={darkMode} onChange={onChange} />
+              </li>
             </ul>
           </nav>
         </header>
