@@ -11,14 +11,6 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-purgecss',
-      options: {
-        printRejected: false,
-        develop: false,
-        tailwind: true,
-      },
-    },
-    {
       resolve: 'gatsby-plugin-svgr',
       options: {
         prettier: true, // use prettier to format JS code output (default)
@@ -108,14 +100,6 @@ module.exports = {
                 global: false,
               },
               escapeEntities: {},
-            },
-          },
-        ],
-        plugins: [
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              showCaptions: ['title'],
             },
           },
         ],
