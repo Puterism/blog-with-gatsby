@@ -3,6 +3,7 @@ const siteConfig = require('./site-config');
 module.exports = {
   siteMetadata: siteConfig,
   plugins: [
+    // TODO: https://github.com/netlify/netlify-plugin-gatsby/releases/tag/v2.0.0
     'gatsby-plugin-netlify',
     {
       resolve: 'gatsby-plugin-postcss',
