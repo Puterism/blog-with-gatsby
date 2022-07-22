@@ -6,6 +6,7 @@ import useSiteMetadata from '../../hooks/useSiteMetadata';
 import useDarkMode from '../../hooks/useDarkMode';
 import Logo from '../logo/logo';
 import Toggle from '../toggle/toggle';
+import { Helmet } from 'react-helmet';
 
 interface Props {
   children: React.ReactNode;
@@ -21,6 +22,11 @@ const Layout = ({ children }: Props) => {
         a: AnchorLink,
       }}
     >
+      <Helmet>
+        <script>
+          const theme = localStorage.getItem('theme') || 'light'; document.documentElement.className = theme;
+        </script>
+      </Helmet>
       <div className="max-w-3xl m-auto px-4">
         <header className="flex items-center justify-between my-4">
           <Link to="/">

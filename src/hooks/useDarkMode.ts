@@ -20,7 +20,9 @@ const useDarkMode = () => {
   const setLayout = useCallback((targetTheme: Theme) => {
     if (targetTheme === Theme.Dark) {
       document.documentElement.classList.add(Theme.Dark);
-    } else {
+    }
+
+    if (targetTheme === Theme.Light) {
       document.documentElement.classList.remove(Theme.Dark);
     }
 
