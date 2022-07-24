@@ -5,6 +5,8 @@ import Layout from '../components/layout/layout';
 import Tag from '../components/tag/tag';
 import { formatDateString } from '../utils/datetime';
 import SEO from '../components/seo/seo';
+import { Theme } from '../@types';
+import ThemeProvider from '../contexts/ThemeProvider';
 
 interface Props {
   pageContext: {
@@ -20,25 +22,27 @@ const TagTemplate = ({ pageContext, data }: Props) => {
   const tagTitle = `${tag} - Tags`;
 
   return (
-    <Layout>
-      <SEO title={tagTitle} />
-      <Tag name={tag} count={totalCount} />
-      <ul>
-        {edges.map(({ node }) => {
-          const { id, frontmatter, fields } = node;
-          const { title, date } = frontmatter;
+    <ThemeProvider>
+      <Layout>
+        <SEO title={tagTitle} />
+        <Tag name={tag} count={totalCount} />
+        <ul>
+          {edges.map(({ node }) => {
+            const { id, frontmatter, fields } = node;
+            const { title, date } = frontmatter;
 
-          return (
-            <li key={id} className="my-8">
-              <Link to={`/${frontmatter.slug}` ?? fields.slug}>
-                <h3 className="font-bold">{title}</h3>
-                <small>{formatDateString(date)}</small>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </Layout>
+            return (
+              <li key={id} className="my-8">
+                <Link to={`/${frontmatter.slug}` ?? fields.slug}>
+                  <h3 className="font-bold">{title}</h3>
+                  <small>{formatDateString(date)}</small>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Layout>
+    </ThemeProvider>
   );
 };
 

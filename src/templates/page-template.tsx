@@ -4,6 +4,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { Node } from '../types';
 import Layout from '../components/layout/layout';
 import SEO from '../components/seo/seo';
+import ThemeProvider from '../contexts/ThemeProvider';
 
 interface Props {
   data: {
@@ -16,12 +17,14 @@ const PageTemplate = ({ data }: Props) => {
   const { title } = frontmatter;
 
   return (
-    <Layout>
-      <SEO title={title} description={excerpt} />
-      <article className="prose dark:prose-invert max-w-none my-16">
-        <MDXRenderer localImages={frontmatter.embeddedImagesLocal}>{body}</MDXRenderer>
-      </article>
-    </Layout>
+    <ThemeProvider>
+      <Layout>
+        <SEO title={title} description={excerpt} />
+        <article className="prose dark:prose-invert max-w-none my-16">
+          <MDXRenderer localImages={frontmatter.embeddedImagesLocal}>{body}</MDXRenderer>
+        </article>
+      </Layout>
+    </ThemeProvider>
   );
 };
 

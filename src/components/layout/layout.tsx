@@ -3,9 +3,9 @@ import { MDXProvider } from '@mdx-js/react';
 import { Link } from 'gatsby';
 import AnchorLink from '../anchor-link/anchor-link';
 import useSiteMetadata from '../../hooks/useSiteMetadata';
-import useDarkMode from '../../hooks/useDarkMode';
 import Logo from '../logo/logo';
 import Toggle from '../toggle/toggle';
+import { useTheme } from '../../contexts/ThemeProvider';
 
 interface Props {
   children: React.ReactNode;
@@ -13,7 +13,11 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   const { menu } = useSiteMetadata();
-  const { darkMode, onChange } = useDarkMode();
+  const { darkMode, onChange } = useTheme();
+
+  const handleChangeDarkMode = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange?.(event);
+  };
 
   return (
     <MDXProvider
@@ -36,7 +40,7 @@ const Layout = ({ children }: Props) => {
                 </li>
               ))}
               <li className="h-full">
-                <Toggle checked={darkMode} onChange={onChange} />
+                <Toggle checked={darkMode} onChange={handleChangeDarkMode} />
               </li>
             </ul>
           </nav>

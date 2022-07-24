@@ -5,6 +5,7 @@ import { AllMdx } from '../types';
 import Author from '../components/author/author';
 import { formatDateString } from '../utils/datetime';
 import SEO from '../components/seo/seo';
+import ThemeProvider from '../contexts/ThemeProvider';
 
 interface Props {
   data: AllMdx;
@@ -12,28 +13,30 @@ interface Props {
 
 const BlogTemplate = ({ data }: Props) => {
   return (
-    <Layout>
-      <SEO />
-      <hr className="mb-8" />
-      <Author />
-      <hr className="my-8" />
-      <h2>블로그</h2>
-      <ul>
-        {data.allMdx.edges.map(({ node }) => {
-          const { id, frontmatter, fields } = node;
-          const { title, date } = frontmatter;
+    <ThemeProvider>
+      <Layout>
+        <SEO />
+        <hr className="mb-8" />
+        <Author />
+        <hr className="my-8" />
+        <h2>블로그</h2>
+        <ul>
+          {data.allMdx.edges.map(({ node }) => {
+            const { id, frontmatter, fields } = node;
+            const { title, date } = frontmatter;
 
-          return (
-            <li key={id} className="my-8">
-              <Link to={`/${frontmatter.slug}` ?? fields.slug}>
-                <h3 className="font-bold">{title}</h3>
-                <small>{formatDateString(date)}</small>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </Layout>
+            return (
+              <li key={id} className="my-8">
+                <Link to={`/${frontmatter.slug}` ?? fields.slug}>
+                  <h3 className="font-bold">{title}</h3>
+                  <small>{formatDateString(date)}</small>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Layout>
+    </ThemeProvider>
   );
 };
 

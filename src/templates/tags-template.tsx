@@ -4,6 +4,7 @@ import Layout from '../components/layout/layout';
 import { TagsQuery } from '../types';
 import Tag from '../components/tag/tag';
 import SEO from '../components/seo/seo';
+import ThemeProvider from '../contexts/ThemeProvider';
 
 interface Props {
   data: TagsQuery;
@@ -11,17 +12,19 @@ interface Props {
 
 const TagsTemplate = ({ data }: Props) => {
   return (
-    <Layout>
-      <SEO title="Tags" />
-      <h2>태그 목록</h2>
-      <ul className="flex gap-4 my-2 flex-wrap">
-        {data.allMdx.group.map(({ fieldValue, totalCount }) => (
-          <li key={fieldValue}>
-            <Tag name={fieldValue} count={totalCount} />
-          </li>
-        ))}
-      </ul>
-    </Layout>
+    <ThemeProvider>
+      <Layout>
+        <SEO title="Tags" />
+        <h2>태그 목록</h2>
+        <ul className="flex gap-4 my-2 flex-wrap">
+          {data.allMdx.group.map(({ fieldValue, totalCount }) => (
+            <li key={fieldValue}>
+              <Tag name={fieldValue} count={totalCount} />
+            </li>
+          ))}
+        </ul>
+      </Layout>
+    </ThemeProvider>
   );
 };
 
