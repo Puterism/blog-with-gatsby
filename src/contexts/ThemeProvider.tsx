@@ -1,4 +1,5 @@
-import React, { useCallback, useContext, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { Theme } from '../@types';
 
 interface ThemeContextValue {
@@ -56,11 +57,30 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     [updateLayout]
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     updateLayout(initialTheme);
   }, [initialTheme, updateLayout]);
 
-  return <ThemeContext.Provider value={{ theme, darkMode, onChange }}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={{ theme, darkMode, onChange }}>
+      <Helmet>
+        <script>
+          {`
+            if (typeof window !== 'undefined') {
+              const theme = localStorage.getItem('theme');
+
+              if (theme === 'dark') {
+                document.documentElement.setAttribute('class', 'dark');
+              } else if (theme !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('class', 'dark');
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
 export default ThemeProvider;
