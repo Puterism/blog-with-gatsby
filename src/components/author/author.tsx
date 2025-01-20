@@ -9,7 +9,7 @@ const Author = () => {
   return (
     <div className="flex items-center gap-4">
       <StaticImage
-        src="../../../static/profile.png"
+        src="../../../static/profile.jpeg"
         alt={name}
         width={100}
         aspectRatio={1}

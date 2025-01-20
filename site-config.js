@@ -12,7 +12,7 @@ module.exports = {
   manifestIcon: 'src/images/icon.png',
   author: {
     name: '심문성',
-    avatar: '/profile.png',
+    avatar: '/profile.jpeg',
     introduction: '커피를 유별나게 좋아하는 프론트엔드 개발자입니다.',
     social: {
       twitter: '@puterism',
